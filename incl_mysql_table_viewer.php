@@ -84,6 +84,7 @@ $db = new mysqli(
   $MySQL['schema'],
   $MySQL['port']
   );
+// Bail out: Database connection error
 if($db->connect_error) {
   die('Failed to connect to database: ' . $MySQL['username'] . '@' . $MySQL['host'] . ':' . $MySQL['port'] . '/' . $MySQL['schema'] . '.');
 }
