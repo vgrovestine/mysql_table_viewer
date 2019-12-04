@@ -37,7 +37,7 @@ if(trim($MySQL['list_cols']) != '*' && !in_array($MySQL['pk'], explode(',', $MyS
 $MySQL['list_sql'] = 'select ' . $MySQL['list_cols'] 
   . ' from ' . $MySQL['table'] 
   . ' order by ' . $MySQL['pk'] . ' ' . $MySQL['list_order'] 
-  . ((is_numeric($MySQL['list_limit']) && $MySQL['list_limit'] > 0) ? ' limit 100' : '');
+  . ((is_numeric($MySQL['list_limit']) && $MySQL['list_limit'] > 0) ? ' limit ' . $MySQL['list_limit'] : '');
 
 // Set page title
 $page_title = 'MySQL table viewer: ' . $MySQL['table'];
