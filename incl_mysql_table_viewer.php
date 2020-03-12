@@ -124,6 +124,9 @@ function markupRowList($db, $sql, $table, $col_pk, $urlqs_pk) {
     // Markup list columns; link primary key, indicate active/viewing record
     $markup .= '<tr id="' . $r[$col_pk] . '"' . ($urlqs_pk === $r[$col_pk] ? ' class="active"' : '') . '>';
     foreach($r as $rKey => $rValue) {
+      if(preg_match('/^a\:(\d+)\:\{/', $rValue)) {
+        $rValue = implode(', ', unserialize($rValue));
+      }
       if($rKey == $col_pk) {
         $markup .= '<td class="primary_key"><a href="?pk=' . $r[$col_pk] . '#' . $r[$col_pk] . '" title="View record ' . $r[$col_pk] . '">' . $rValue . '</a></td>';
       }
@@ -179,6 +182,9 @@ function markupRecord($db, $table, $col_pk, $urlqs_pk) {
     $markup .= '<dl>';
     if($q->num_rows) {
       foreach($r as $rKey => $rValue) {
+        if(preg_match('/^a\:(\d+)\:\{/', $rValue)) {
+          $rValue = implode(', ', unserialize($rValue));
+        }
         $markup .= '<dt>' . $rKey . '</dt><dd>' . (is_null($rValue) ? '<span class="null">(null)</span>' : ($rValue === '' ? '<span class="empty">(empty)</span>' : htmlentities($rValue))) . '</dd>';
       }
     }
